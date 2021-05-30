@@ -1,0 +1,15 @@
+{
+  "editor.tabSize": 2,
+  "editor.rulers": [
+      100
+  ],
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.associations": {
+    ".dockerignore": "ignore",
+    "config": "shellscript",
+    "clean": "shellscript",
+    "test": "shellscript"
+  }
+}

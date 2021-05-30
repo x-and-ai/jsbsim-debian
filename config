@@ -1,0 +1,5 @@
+# Shell script to configurate variables
+
+PROJECT_NAME=${PWD##*/}
+TEST_IMAGE_NAME="${PROJECT_NAME}:test"
+TEST_CONTAINER_NAME="test-${PROJECT_NAME}"

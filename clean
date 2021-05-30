@@ -1,0 +1,34 @@
+# Shell script to clean up previously built images and containers
+
+source config
+
+# Stop and remove running container with the same name
+if $(docker ps -a | grep -q ${TEST_CONTAINER_NAME}); then
+    docker stop ${TEST_CONTAINER_NAME}
+fi
+if $(docker ps -a | grep -q ${TEST_CONTAINER_NAME}); then
+    docker rm ${TEST_CONTAINER_NAME}
+fi
+
+# Remove image with the same name
+if [[ "$(docker images -q ${TEST_IMAGE_NAME} 2> /dev/null)" != "" ]]; then
+    docker rmi ${TEST_IMAGE_NAME}
+fi
+
+# Remove all images with <none> tag and their containers
+for image_id in `docker images -f "dangling=true" -q`
+do
+  for container_id in `docker ps -a -q -f "ancestor=${image_id}"`
+  do
+    if $(docker ps | grep -q ${container_id}); then
+        echo Stopping container ${container_id}
+        docker stop ${container_id}
+    fi
+    if $(docker ps -a | grep -q ${container_id}); then
+        echo Removing container ${container_id}
+        docker rm ${container_id}
+    fi
+  done
+  echo Removing image ${image_id} ...
+  docker rmi ${image_id}
+done
