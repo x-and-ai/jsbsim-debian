@@ -12,18 +12,19 @@ This is a Docker image for using JSBSim with Jupyter Lab on Debian.
 
 | tag        | jsbsim     | jupyterlab | python     | debian     |
 |:----------:|:----------:|:----------:|:----------:|:----------:|
-| 1.1.0      | 1.1.6      | 3.0.16     | 3.7.3      | 10.9       |
+| 1.0.1      | 1.1.6      | 3.0.16     | 3.7.3      | 10.9       |
+| 1.0.0      | 1.1.6      | 3.0.16     | 3.7.3      | 10.9       |
 
 ## Usage
 
 - Start Jupyter Lab without token
 
 ``` sh
-docker run --rm -it -p <localhostport>:8888 -v /absolute/path/to/workdir:/home/jupyter/workdir xandai/jsbsim-debian:1.0.0 jupyter lab --NotebookApp.token=''
+docker run --rm -it -p <localhostport>:8888 -v /absolute/path/to/workdir:/home/jupyter/workdir xandai/jsbsim-debian:1.0.1 jupyter lab --ServerApp.token=''
 ```
 
 - Start Jupyter Lab with token
 
 ``` sh
-docker run --rm -it -p <localhostport>:8888 -v /absolute/path/to/workdir:/home/jupyter/workdir xandai/jsbsim-debian:1.0.0
+docker run --rm -it -p <localhostport>:8888 -v /absolute/path/to/workdir:/home/jupyter/workdir xandai/jsbsim-debian:1.0.1
 ```

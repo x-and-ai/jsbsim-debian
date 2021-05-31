@@ -10,5 +10,5 @@ docker build --tag=${TEST_IMAGE_NAME} .
 
 # Run a test container
 JUPYTER_PORT=8888
-TEST_SCRIPT="/bin/bash" #"jupyter lab --NotebookApp.token=''"
-docker run  --rm -it -p $JUPYTER_PORT:8888 -v $(pwd)/lab:/home/jupyter/workdir --name $TEST_CONTAINER_NAME $TEST_IMAGE_NAME sh -c "${TEST_SCRIPT}"
+TEST_SCRIPT="JSBSim --version && jupyter lab --ServerApp.token=''"
+docker run  --rm -it -p $JUPYTER_PORT:8888 -v $(pwd)/lab:/home/jupyter/workdir --name $TEST_CONTAINER_NAME $TEST_IMAGE_NAME /bin/bash -c "${TEST_SCRIPT}"

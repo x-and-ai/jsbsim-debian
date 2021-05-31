@@ -1,4 +1,4 @@
-ARG JUPYTER_DEBIAN_VERSION="1.1.1"
+ARG JUPYTER_DEBIAN_VERSION="1.1.2"
 
 FROM xandai/jupyter-debian:${JUPYTER_DEBIAN_VERSION}
 
@@ -15,7 +15,7 @@ ARG PIP_PACKAGES="jsbsim==${JSBSIM_VERSION}"
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ${APT_PACKAGES} \
     && rm -rf /var/lib/apt/lists/* \
-    && python -m pip install --no-cache-dir cython
+    && python3 -m pip install --no-cache-dir cython
 
 USER ${JUPYTER_USER}
 
@@ -24,14 +24,14 @@ RUN git clone https://github.com/JSBSim-Team/jsbsim.git ${TEMP_JSBSIM_DIR} \
     && git checkout v${JSBSIM_VERSION} \
     && mkdir build \
     && cd build \
-    && cmake .. \
+    && cmake .. -DBUILD_PYTHON_MODULE=OFF\
     && make -j$(nproc)
 
 USER root
 
 RUN cd ${TEMP_JSBSIM_DIR}/build \
     && make install \
-    && python -m pip install --no-cache-dir jsbsim
+    && python3 -m pip install --no-cache-dir jsbsim
 
 USER ${JUPYTER_USER}
 
