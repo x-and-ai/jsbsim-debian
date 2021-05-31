@@ -1,4 +1,4 @@
-ARG JUPYTER_DEBIAN_VERSION="1.1.2"
+ARG JUPYTER_DEBIAN_VERSION="1.1.3"
 
 FROM xandai/jupyter-debian:${JUPYTER_DEBIAN_VERSION}
 
@@ -24,14 +24,14 @@ RUN git clone https://github.com/JSBSim-Team/jsbsim.git ${TEMP_JSBSIM_DIR} \
     && git checkout v${JSBSIM_VERSION} \
     && mkdir build \
     && cd build \
-    && cmake .. -DBUILD_PYTHON_MODULE=OFF\
+    && cmake .. -DBUILD_PYTHON_MODULE=OFF \
     && make -j$(nproc)
 
 USER root
 
 RUN cd ${TEMP_JSBSIM_DIR}/build \
     && make install \
-    && python3 -m pip install --no-cache-dir jsbsim
+    && python3 -m pip install --no-cache-dir jsbsim==${JSBSIM_VERSION}
 
 USER ${JUPYTER_USER}
 
